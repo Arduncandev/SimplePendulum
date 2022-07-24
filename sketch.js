@@ -6,7 +6,7 @@ let bob;
 let len;
 let origin;
 
-let gravity = 0.001;
+let gravity = 1;
 
 function setup() {
   createCanvas(600, 400);
@@ -20,13 +20,19 @@ function draw() {
   background(0);
 
   let force = gravity * sin(angle);
-  let angleAcceleration = -1 * force;
+
+  let angleAcceleration = (-1 * force) / len;
   angleVelocity += angleAcceleration;
   angle += angleVelocity;
 
+  // add damnping
+  angleVelocity *= 0.999;
+
+  //
   bob.x = len * sin(angle) + origin.x;
   bob.y = len * cos(angle) + origin.y;
 
+  //draw pendulum
   stroke(255);
   strokeWeight(8);
   fill(127);
